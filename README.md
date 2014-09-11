@@ -23,7 +23,7 @@ This plugin provides an API for taking pictures and for choosing images from
 the system's image library. It only works in iOS - if someone can submit a pull
 request to make it work in Android, that would be appreciated.
 
-    cordova plugin add https://github.com/JonathanAquino/cordova-last-photo-taken.git
+    cordova plugin add com.ning.last-photo-taken
 
 
 ## navigator.LastPhotoTaken.getLastPhoto
