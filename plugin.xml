@@ -2,7 +2,7 @@
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:rim="http://www.blackberry.com/ns/widgets"
-    id="com.example.custom-camera"
+    id="com.ning.last-photo-taken"
     version="0.0.1">
 
 <name>Last Photo Taken</name>
