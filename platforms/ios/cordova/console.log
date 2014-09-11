@@ -1,0 +1,261 @@
+2014-09-10 15:55:16.199 LastPhotoTaken[31090:90b] Multi-tasking -> Device: YES, App: YES
+2014-09-10 15:55:16.230 LastPhotoTaken[31090:90b] Unlimited access to network resources
+2014-09-10 15:55:16.235 LastPhotoTaken[31090:90b] 
+
+Started backup to iCloud! Please be careful.
+Your application might rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines"
+You could find it at the following address https://developer.apple.com/icloud/documentation/data-storage/ .
+
+2014-09-10 15:55:16.444 LastPhotoTaken[31090:90b] Resetting plugins due to page load.
+2014-09-10 15:55:16.546 LastPhotoTaken[31090:90b] Finished load of: file:///Users/jona/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/AB093145-15A7-4B42-89B2-01CB2E3EEF5C/LastPhotoTaken.app/www/index.html
+2014-09-10 15:55:21.296 LastPhotoTaken[31090:90b] ERROR: Plugin 'LastPhotoTaken' not found, or is not a CDVPlugin. Check your plugin mapping in config.xml.
+2014-09-10 15:55:21.296 LastPhotoTaken[31090:90b] -[CDVCommandQueue executePending] [Line 158] FAILED pluginJSON = [
+  "LastPhotoTaken362631892",
+  "LastPhotoTaken",
+  "getLastPhoto",
+  [
+
+  ]
+]
+2014-09-10 15:55:22.790 LastPhotoTaken[31090:90b] ERROR: Plugin 'LastPhotoTaken' not found, or is not a CDVPlugin. Check your plugin mapping in config.xml.
+2014-09-10 15:55:22.790 LastPhotoTaken[31090:90b] -[CDVCommandQueue executePending] [Line 158] FAILED pluginJSON = [
+  "LastPhotoTaken362631893",
+  "LastPhotoTaken",
+  "getLastPhoto",
+  [
+
+  ]
+]
+2014-09-10 15:55:25.684 LastPhotoTaken[31090:90b] ERROR: Plugin 'LastPhotoTaken' not found, or is not a CDVPlugin. Check your plugin mapping in config.xml.
+2014-09-10 15:55:25.685 LastPhotoTaken[31090:90b] -[CDVCommandQueue executePending] [Line 158] FAILED pluginJSON = [
+  "LastPhotoTaken362631894",
+  "LastPhotoTaken",
+  "getLastPhoto",
+  [
+
+  ]
+]
+2014-09-10 15:55:51.311 LastPhotoTaken[31090:90b] ERROR: Plugin 'LastPhotoTaken' not found, or is not a CDVPlugin. Check your plugin mapping in config.xml.
+2014-09-10 15:55:51.312 LastPhotoTaken[31090:90b] -[CDVCommandQueue executePending] [Line 158] FAILED pluginJSON = [
+  "LastPhotoTaken362631895",
+  "LastPhotoTaken",
+  "getLastPhoto",
+  [
+
+  ]
+]
+2014-09-10 15:55:52.284 LastPhotoTaken[31090:90b] ERROR: Plugin 'LastPhotoTaken' not found, or is not a CDVPlugin. Check your plugin mapping in config.xml.
+2014-09-10 15:55:52.284 LastPhotoTaken[31090:90b] -[CDVCommandQueue executePending] [Line 158] FAILED pluginJSON = [
+  "LastPhotoTaken362631896",
+  "LastPhotoTaken",
+  "getLastPhoto",
+  [
+
+  ]
+]
+2014-09-10 15:55:57.644 LastPhotoTaken[31090:90b] ERROR: Plugin 'LastPhotoTaken' not found, or is not a CDVPlugin. Check your plugin mapping in config.xml.
+2014-09-10 15:55:57.645 LastPhotoTaken[31090:90b] -[CDVCommandQueue executePending] [Line 158] FAILED pluginJSON = [
+  "LastPhotoTaken362631897",
+  "LastPhotoTaken",
+  "getLastPhoto",
+  [
+
+  ]
+]
+2014-09-10 15:56:32.451 LastPhotoTaken[31090:90b] ERROR: Plugin 'LastPhotoTaken' not found, or is not a CDVPlugin. Check your plugin mapping in config.xml.
+2014-09-10 15:56:32.451 LastPhotoTaken[31090:90b] -[CDVCommandQueue executePending] [Line 158] FAILED pluginJSON = [
+  "LastPhotoTaken362631898",
+  "LastPhotoTaken",
+  "getLastPhoto",
+  [
+
+  ]
+]
+2014-09-10 15:57:52.212 LastPhotoTaken[31090:90b] ERROR: Plugin 'LastPhotoTaken' not found, or is not a CDVPlugin. Check your plugin mapping in config.xml.
+2014-09-10 15:57:52.213 LastPhotoTaken[31090:90b] -[CDVCommandQueue executePending] [Line 158] FAILED pluginJSON = [
+  "LastPhotoTaken362631899",
+  "LastPhotoTaken",
+  "getLastPhoto",
+  [
+
+  ]
+]
+2014-09-10 19:03:19.488 LastPhotoTaken[31766:90b] Multi-tasking -> Device: YES, App: YES
+2014-09-10 19:03:19.525 LastPhotoTaken[31766:90b] Unlimited access to network resources
+2014-09-10 19:03:19.530 LastPhotoTaken[31766:90b] 
+
+Started backup to iCloud! Please be careful.
+Your application might rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines"
+You could find it at the following address https://developer.apple.com/icloud/documentation/data-storage/ .
+
+2014-09-10 19:03:19.869 LastPhotoTaken[31766:90b] Resetting plugins due to page load.
+2014-09-10 19:03:19.999 LastPhotoTaken[31766:90b] Finished load of: file:///Users/jona/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/AB093145-15A7-4B42-89B2-01CB2E3EEF5C/LastPhotoTaken.app/www/index.html
+2014-09-10 19:03:26.478 LastPhotoTaken[31766:90b] ERROR: Plugin 'LastPhotoTaken' not found, or is not a CDVPlugin. Check your plugin mapping in config.xml.
+2014-09-10 19:03:26.479 LastPhotoTaken[31766:90b] -[CDVCommandQueue executePending] [Line 158] FAILED pluginJSON = [
+  "LastPhotoTaken1683027332",
+  "LastPhotoTaken",
+  "getLastPhoto",
+  [
+
+  ]
+]
+2014-09-10 19:06:21.742 LastPhotoTaken[31999:90b] Multi-tasking -> Device: YES, App: YES
+2014-09-10 19:06:21.748 LastPhotoTaken[31999:90b] Unlimited access to network resources
+2014-09-10 19:06:21.750 LastPhotoTaken[31999:90b] 
+
+Started backup to iCloud! Please be careful.
+Your application might rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines"
+You could find it at the following address https://developer.apple.com/icloud/documentation/data-storage/ .
+
+2014-09-10 19:06:21.799 LastPhotoTaken[31999:90b] Resetting plugins due to page load.
+2014-09-10 19:06:21.844 LastPhotoTaken[31999:90b] Finished load of: file:///Users/jona/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/AB093145-15A7-4B42-89B2-01CB2E3EEF5C/LastPhotoTaken.app/www/index.html
+2014-09-10 19:06:27.570 LastPhotoTaken[31999:90b] ERROR: Plugin 'LastPhotoTaken' not found, or is not a CDVPlugin. Check your plugin mapping in config.xml.
+2014-09-10 19:06:27.571 LastPhotoTaken[31999:90b] -[CDVCommandQueue executePending] [Line 158] FAILED pluginJSON = [
+  "LastPhotoTaken306426505",
+  "LastPhotoTaken",
+  "getLastPhoto",
+  [
+
+  ]
+]
+2014-09-10 19:06:29.227 LastPhotoTaken[31999:90b] ERROR: Plugin 'LastPhotoTaken' not found, or is not a CDVPlugin. Check your plugin mapping in config.xml.
+2014-09-10 19:06:29.228 LastPhotoTaken[31999:90b] -[CDVCommandQueue executePending] [Line 158] FAILED pluginJSON = [
+  "LastPhotoTaken306426506",
+  "LastPhotoTaken",
+  "getLastPhoto",
+  [
+
+  ]
+]
+2014-09-10 19:06:30.578 LastPhotoTaken[31999:90b] ERROR: Plugin 'LastPhotoTaken' not found, or is not a CDVPlugin. Check your plugin mapping in config.xml.
+2014-09-10 19:06:30.579 LastPhotoTaken[31999:90b] -[CDVCommandQueue executePending] [Line 158] FAILED pluginJSON = [
+  "LastPhotoTaken306426507",
+  "LastPhotoTaken",
+  "getLastPhoto",
+  [
+
+  ]
+]
+2014-09-10 19:06:41.070 LastPhotoTaken[31999:90b] ERROR: Plugin 'LastPhotoTaken' not found, or is not a CDVPlugin. Check your plugin mapping in config.xml.
+2014-09-10 19:06:41.070 LastPhotoTaken[31999:90b] -[CDVCommandQueue executePending] [Line 158] FAILED pluginJSON = [
+  "LastPhotoTaken306426508",
+  "LastPhotoTaken",
+  "getLastPhoto",
+  [
+
+  ]
+]
+2014-09-10 19:06:54.648 LastPhotoTaken[31999:90b] ERROR: Plugin 'LastPhotoTaken2' not found, or is not a CDVPlugin. Check your plugin mapping in config.xml.
+2014-09-10 19:06:54.649 LastPhotoTaken[31999:90b] -[CDVCommandQueue executePending] [Line 158] FAILED pluginJSON = [
+  "LastPhotoTaken2306426509",
+  "LastPhotoTaken2",
+  "getLastPhoto3",
+  [
+
+  ]
+]
+2014-09-10 19:13:00.657 LastPhotoTaken[32099:90b] Multi-tasking -> Device: YES, App: YES
+2014-09-10 19:13:00.662 LastPhotoTaken[32099:90b] Unlimited access to network resources
+2014-09-10 19:13:00.665 LastPhotoTaken[32099:90b] 
+
+Started backup to iCloud! Please be careful.
+Your application might rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines"
+You could find it at the following address https://developer.apple.com/icloud/documentation/data-storage/ .
+
+2014-09-10 19:13:00.713 LastPhotoTaken[32099:90b] Resetting plugins due to page load.
+2014-09-10 19:13:00.759 LastPhotoTaken[32099:90b] Finished load of: file:///Users/jona/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/AB093145-15A7-4B42-89B2-01CB2E3EEF5C/LastPhotoTaken.app/www/index.html
+2014-09-10 19:14:54.089 LastPhotoTaken[32460:90b] Multi-tasking -> Device: YES, App: YES
+2014-09-10 19:14:54.095 LastPhotoTaken[32460:90b] Unlimited access to network resources
+2014-09-10 19:14:54.097 LastPhotoTaken[32460:90b] 
+
+Started backup to iCloud! Please be careful.
+Your application might rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines"
+You could find it at the following address https://developer.apple.com/icloud/documentation/data-storage/ .
+
+2014-09-10 19:14:54.140 LastPhotoTaken[32460:90b] Resetting plugins due to page load.
+2014-09-10 19:14:54.184 LastPhotoTaken[32460:90b] Finished load of: file:///Users/jona/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/AB093145-15A7-4B42-89B2-01CB2E3EEF5C/LastPhotoTaken.app/www/index.html
+2014-09-10 19:15:17.389 LastPhotoTaken[32460:90b] THREAD WARNING: ['LastPhotoTaken'] took '27.070068' ms. Plugin should use a background thread.
+2014-09-10 19:16:44.473 LastPhotoTaken[32460:90b] *** Assertion failure in -[UIApplication runModal:](), /SourceCache/UIKit_Sim/UIKit-2935.137/UIApplication.m:9585
+2014-09-10 19:16:44.474 LastPhotoTaken[32460:90b] *** WebKit discarded an uncaught exception in the webView:runJavaScriptAlertPanelWithMessage:initiatedByFrame: delegate: <NSInternalInconsistencyException> The view passed in does not have a window.
+2014-09-10 19:17:04.703 LastPhotoTaken[32612:90b] Multi-tasking -> Device: YES, App: YES
+2014-09-10 19:17:04.709 LastPhotoTaken[32612:90b] Unlimited access to network resources
+2014-09-10 19:17:04.711 LastPhotoTaken[32612:90b] 
+
+Started backup to iCloud! Please be careful.
+Your application might rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines"
+You could find it at the following address https://developer.apple.com/icloud/documentation/data-storage/ .
+
+2014-09-10 19:17:04.759 LastPhotoTaken[32612:90b] Resetting plugins due to page load.
+2014-09-10 19:17:04.797 LastPhotoTaken[32612:90b] Finished load of: file:///Users/jona/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/AB093145-15A7-4B42-89B2-01CB2E3EEF5C/LastPhotoTaken.app/www/index.html
+2014-09-10 19:17:10.896 LastPhotoTaken[32612:90b] *** Assertion failure in -[UIApplication runModal:](), /SourceCache/UIKit_Sim/UIKit-2935.137/UIApplication.m:9585
+2014-09-10 19:17:10.896 LastPhotoTaken[32612:90b] *** WebKit discarded an uncaught exception in the webView:runJavaScriptAlertPanelWithMessage:initiatedByFrame: delegate: <NSInternalInconsistencyException> The view passed in does not have a window.
+2014-09-10 19:18:07.456 LastPhotoTaken[32752:90b] Multi-tasking -> Device: YES, App: YES
+2014-09-10 19:18:07.461 LastPhotoTaken[32752:90b] Unlimited access to network resources
+2014-09-10 19:18:07.464 LastPhotoTaken[32752:90b] 
+
+Started backup to iCloud! Please be careful.
+Your application might rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines"
+You could find it at the following address https://developer.apple.com/icloud/documentation/data-storage/ .
+
+2014-09-10 19:18:07.507 LastPhotoTaken[32752:90b] Resetting plugins due to page load.
+2014-09-10 19:18:07.552 LastPhotoTaken[32752:90b] Finished load of: file:///Users/jona/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/AB093145-15A7-4B42-89B2-01CB2E3EEF5C/LastPhotoTaken.app/www/index.html
+2014-09-10 19:18:15.054 LastPhotoTaken[32752:90b] *** Assertion failure in -[UIApplication runModal:](), /SourceCache/UIKit_Sim/UIKit-2935.137/UIApplication.m:9585
+2014-09-10 19:18:15.055 LastPhotoTaken[32752:90b] *** WebKit discarded an uncaught exception in the webView:runJavaScriptAlertPanelWithMessage:initiatedByFrame: delegate: <NSInternalInconsistencyException> The view passed in does not have a window.
+2014-09-10 19:18:25.750 LastPhotoTaken[32752:90b] *** Assertion failure in -[UIApplication runModal:](), /SourceCache/UIKit_Sim/UIKit-2935.137/UIApplication.m:9585
+2014-09-10 19:18:25.750 LastPhotoTaken[32752:90b] *** WebKit discarded an uncaught exception in the webView:runJavaScriptAlertPanelWithMessage:initiatedByFrame: delegate: <NSInternalInconsistencyException> The view passed in does not have a window.
+2014-09-10 19:18:30.037 LastPhotoTaken[32752:90b] *** Assertion failure in -[UIApplication runModal:](), /SourceCache/UIKit_Sim/UIKit-2935.137/UIApplication.m:9585
+2014-09-10 19:18:30.037 LastPhotoTaken[32752:90b] *** WebKit discarded an uncaught exception in the webView:runJavaScriptAlertPanelWithMessage:initiatedByFrame: delegate: <NSInternalInconsistencyException> The view passed in does not have a window.
+2014-09-10 19:21:05.936 LastPhotoTaken[32902:90b] Multi-tasking -> Device: YES, App: YES
+2014-09-10 19:21:05.941 LastPhotoTaken[32902:90b] Unlimited access to network resources
+2014-09-10 19:21:05.944 LastPhotoTaken[32902:90b] 
+
+Started backup to iCloud! Please be careful.
+Your application might rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines"
+You could find it at the following address https://developer.apple.com/icloud/documentation/data-storage/ .
+
+2014-09-10 19:21:05.991 LastPhotoTaken[32902:90b] Resetting plugins due to page load.
+2014-09-10 19:21:06.036 LastPhotoTaken[32902:90b] Finished load of: file:///Users/jona/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/AB093145-15A7-4B42-89B2-01CB2E3EEF5C/LastPhotoTaken.app/www/index.html
+2014-09-10 19:21:16.600 LastPhotoTaken[32902:90b] THREAD WARNING: ['LastPhotoTaken'] took '1212.164307' ms. Plugin should use a background thread.
+2014-09-10 19:26:09.520 LastPhotoTaken[33070:90b] Multi-tasking -> Device: YES, App: YES
+2014-09-10 19:26:09.525 LastPhotoTaken[33070:90b] Unlimited access to network resources
+2014-09-10 19:26:09.527 LastPhotoTaken[33070:90b] 
+
+Started backup to iCloud! Please be careful.
+Your application might rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines"
+You could find it at the following address https://developer.apple.com/icloud/documentation/data-storage/ .
+
+2014-09-10 19:26:09.570 LastPhotoTaken[33070:90b] Resetting plugins due to page load.
+2014-09-10 19:26:09.616 LastPhotoTaken[33070:90b] Finished load of: file:///Users/jona/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/AB093145-15A7-4B42-89B2-01CB2E3EEF5C/LastPhotoTaken.app/www/index.html
+2014-09-10 19:26:20.711 LastPhotoTaken[33070:90b] THREAD WARNING: ['LastPhotoTaken'] took '1276.748047' ms. Plugin should use a background thread.
+2014-09-10 19:27:15.768 LastPhotoTaken[33213:90b] Multi-tasking -> Device: YES, App: YES
+2014-09-10 19:27:15.774 LastPhotoTaken[33213:90b] Unlimited access to network resources
+2014-09-10 19:27:15.776 LastPhotoTaken[33213:90b] 
+
+Started backup to iCloud! Please be careful.
+Your application might rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines"
+You could find it at the following address https://developer.apple.com/icloud/documentation/data-storage/ .
+
+2014-09-10 19:27:15.856 LastPhotoTaken[33213:90b] Resetting plugins due to page load.
+2014-09-10 19:27:15.895 LastPhotoTaken[33213:90b] Finished load of: file:///Users/jona/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/AB093145-15A7-4B42-89B2-01CB2E3EEF5C/LastPhotoTaken.app/www/index.html
+2014-09-10 19:27:23.440 LastPhotoTaken[33213:90b] THREAD WARNING: ['LastPhotoTaken'] took '1920.989014' ms. Plugin should use a background thread.
+2014-09-10 19:35:35.126 LastPhotoTaken[33390:90b] Multi-tasking -> Device: YES, App: YES
+2014-09-10 19:35:35.132 LastPhotoTaken[33390:90b] Unlimited access to network resources
+2014-09-10 19:35:35.134 LastPhotoTaken[33390:90b] 
+
+Started backup to iCloud! Please be careful.
+Your application might rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines"
+You could find it at the following address https://developer.apple.com/icloud/documentation/data-storage/ .
+
+2014-09-10 19:35:35.178 LastPhotoTaken[33390:90b] Resetting plugins due to page load.
+2014-09-10 19:35:35.216 LastPhotoTaken[33390:90b] Finished load of: file:///Users/jona/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/AB093145-15A7-4B42-89B2-01CB2E3EEF5C/LastPhotoTaken.app/www/index.html
