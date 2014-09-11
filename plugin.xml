@@ -9,6 +9,7 @@
 <description>PhoneGap plugin to retrieve the last photo taken.</description>
 <license>Apache 2.0</license>
 <keywords>cordova,camera</keywords>
+<repo>https://github.com/JonathanAquino/cordova-last-photo-taken.git</repo>
 <author>Jonathan Aquino</author>
 
 <js-module src="www/last_photo_taken.js" name="LastPhotoTaken">
