@@ -11,7 +11,7 @@
 <keywords>cordova,camera</keywords>
 <author>Jonathan Aquino</author>
 
-<js-module src="www/js/last_photo_taken.js" name="LastPhotoTaken">
+<js-module src="www/last_photo_taken.js" name="LastPhotoTaken">
     <clobbers target="navigator.LastPhotoTaken" />
 </js-module>
 
@@ -29,8 +29,8 @@
     </config-file>
 
     <!-- core LastPhotoTaken header and source files -->
-    <header-file src="platforms/ios/LastPhotoTaken/Classes/LastPhotoTaken.h" />
-    <source-file src="platforms/ios/LastPhotoTaken/Classes/LastPhotoTaken.m" />
+    <header-file src="src/ios/LastPhotoTaken.h" />
+    <source-file src="src/ios/LastPhotoTaken.m" />
 
 </platform>
 
