@@ -18,8 +18,8 @@
  */
 
 var LastPhotoTaken = {
-    getLastPhoto: function(success, failure){
-        cordova.exec(success, failure, "LastPhotoTaken", "getLastPhoto", []);
+    getLastPhoto: function(onSuccess, onFailure){
+        cordova.exec(onSuccess, onFailure, "LastPhotoTaken", "getLastPhoto", []);
     }
 };
 
