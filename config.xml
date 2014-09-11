@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.ning.last-photo-taken" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>LastPhotoTaken</name>
+    <description>
+        A sample Apache Cordova application that demonstrates the LastPhotoTaken
+        plugin.
+    </description>
+    <author email="jon@mode.com" href="http://mode.com">
+        Jonathan Aquino
+    </author>
+    <content src="index.html" />
+    <access origin="*" />
+    <feature name="LastPhotoTaken">
+        <param name="ios-package" value="LastPhotoTaken" />
+    </feature>
+</widget>

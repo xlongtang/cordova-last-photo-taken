@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:rim="http://www.blackberry.com/ns/widgets"
+    id="com.example.custom-camera"
+    version="0.0.1">
+
+<name>Last Photo Taken</name>
+<description>PhoneGap plugin to retrieve the last photo taken.</description>
+<license>Apache 2.0</license>
+<keywords>cordova,camera</keywords>
+<author>Jonathan Aquino</author>
+
+<js-module src="www/js/last_photo_taken.js" name="LastPhotoTaken">
+    <clobbers target="navigator.LastPhotoTaken" />
+</js-module>
+
+<engines>
+    <engine name="cordova" version=">=3.1.0" />
+</engines>
+
+<platform name="ios">
+
+    <!-- config file -->
+    <config-file target="config.xml" parent="/*">
+        <feature name="LastPhotoTaken">
+            <param name="ios-package" value="LastPhotoTaken" />
+        </feature>
+    </config-file>
+
+    <!-- core LastPhotoTaken header and source files -->
+    <header-file src="platforms/ios/LastPhotoTaken/Classes/LastPhotoTaken.h" />
+    <source-file src="platforms/ios/LastPhotoTaken/Classes/LastPhotoTaken.m" />
+
+</platform>
+
+</plugin>
