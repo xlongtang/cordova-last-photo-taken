@@ -66,6 +66,7 @@
             ALAssetRepresentation *representation = [alAsset defaultRepresentation];
             ALAssetOrientation orientation = [representation orientation];
             UIImage *latestPhoto = [UIImage imageWithCGImage:[representation fullResolutionImage] scale:[representation scale] orientation:(UIImageOrientation)orientation];
+            latestPhoto = [self imageCorrectedForCaptureOrientation: latestPhoto];
 
             // Stop the enumerations
             *stop = YES; *innerStop = YES;
@@ -102,6 +103,59 @@
         calledBack = YES;
     }];
 
+}
+
+// Actually rotate the image; otherwise it won't be rotated when we convert it to jpeg.
+// See http://stackoverflow.com/questions/5427656/ios-uiimagepickercontroller-result-image-orientation-after-upload
+// Code is taken from: https://github.com/apache/cordova-plugin-camera/blob/master/src/ios/CDVCamera.m
+- (UIImage*)imageCorrectedForCaptureOrientation:(UIImage*)anImage
+{
+    float rotation_radians = 0;
+    bool perpendicular = false;
+
+    switch ([anImage imageOrientation]) {
+        case UIImageOrientationUp :
+            rotation_radians = 0.0;
+            break;
+
+        case UIImageOrientationDown:
+            rotation_radians = M_PI; // don't be scared of radians, if you're reading this, you're good at math
+            break;
+
+        case UIImageOrientationRight:
+            rotation_radians = M_PI_2;
+            perpendicular = true;
+            break;
+
+        case UIImageOrientationLeft:
+            rotation_radians = -M_PI_2;
+            perpendicular = true;
+            break;
+
+        default:
+            break;
+    }
+
+    UIGraphicsBeginImageContext(CGSizeMake(anImage.size.width, anImage.size.height));
+    CGContextRef context = UIGraphicsGetCurrentContext();
+
+    // Rotate around the center point
+    CGContextTranslateCTM(context, anImage.size.width / 2, anImage.size.height / 2);
+    CGContextRotateCTM(context, rotation_radians);
+
+    CGContextScaleCTM(context, 1.0, -1.0);
+    float width = perpendicular ? anImage.size.height : anImage.size.width;
+    float height = perpendicular ? anImage.size.width : anImage.size.height;
+    CGContextDrawImage(context, CGRectMake(-width / 2, -height / 2, width, height), [anImage CGImage]);
+
+    // Move the origin back since the rotation might've change it (if its 90 degrees)
+    if (perpendicular) {
+        CGContextTranslateCTM(context, -anImage.size.height / 2, -anImage.size.width / 2);
+    }
+
+    UIImage* newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return newImage;
 }
 
 @end
