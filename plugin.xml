@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:rim="http://www.blackberry.com/ns/widgets"
     id="com.ning.last-photo-taken"
-    version="0.0.1">
+    version="0.0.2">
 
 <name>Last Photo Taken</name>
 <description>PhoneGap plugin to retrieve the last photo taken.</description>
