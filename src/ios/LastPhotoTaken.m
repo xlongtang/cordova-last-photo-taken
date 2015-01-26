@@ -32,6 +32,12 @@
 // - https://github.com/apache/cordova-plugin-camera/blob/master/src/ios/CDVCamera.m
 -(void) getLastPhoto:(CDVInvokedUrlCommand *)command {
 
+    NSInteger max = [[command.arguments objectAtIndex:0] integerValue];
+    double startTimeTick = [[command.arguments objectAtIndex:1] doubleValue];
+    NSDate *startTime = [NSDate dateWithTimeIntervalSince1970:startTimeTick];
+    double endTimeTick = [[command.arguments objectAtIndex:2] doubleValue];
+    NSDate *endTime = [NSDate dateWithTimeIntervalSince1970:endTimeTick];    
+    
     ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
     __block BOOL calledBack = NO;
 
@@ -63,6 +69,13 @@
             if (alAsset == nil) {
                 return;
             }
+            
+            // If this is not what we want, just check the next one.
+            NSDate * date = [alAsset valueForProperty:ALAssetPropertyDate];
+            if ([date compare:startTime] != NSOrderedDescending || [date compare:endTime] != NSOrderedAscending) {
+                return;
+            }
+            
             ALAssetRepresentation *representation = [alAsset defaultRepresentation];
             ALAssetOrientation orientation = [representation orientation];
             UIImage *latestPhoto = [UIImage imageWithCGImage:[representation fullResolutionImage] scale:[representation scale] orientation:(UIImageOrientation)orientation];
@@ -92,7 +105,10 @@
                 calledBack = YES;
             }
             else {
-                CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:[[NSURL fileURLWithPath:filePath] absoluteString]];
+                NSMutableDictionary *resultDict = [NSMutableDictionary dictionaryWithCapacity:2];
+                [resultDict setObject:[NSNumber numberWithDouble:[date timeIntervalSince1970] * 1000] forKey:@"timestamp"];
+                [resultDict setObject:[[NSURL fileURLWithPath:filePath] absoluteString] forKey:@"path"];
+                CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:resultDict];
                 [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
                 calledBack = YES;
             }
