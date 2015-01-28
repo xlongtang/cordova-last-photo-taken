@@ -72,7 +72,7 @@
             
             // If this is not what we want, just check the next one.
             NSDate * date = [alAsset valueForProperty:ALAssetPropertyDate];
-            if ([date compare:startTime] != NSOrderedDescending || [date compare:endTime] != NSOrderedAscending) {
+            if ([date compare:startTime] != NSOrderedAscending || [date compare:endTime] != NSOrderedDescending) {
                 return;
             }
             
