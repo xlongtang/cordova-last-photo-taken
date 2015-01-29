@@ -34,9 +34,9 @@
 
     NSInteger max = [[command.arguments objectAtIndex:0] integerValue];
     double startTimeTick = [[command.arguments objectAtIndex:1] doubleValue];
-    NSDate *startTime = [NSDate dateWithTimeIntervalSince1970:startTimeTick];
+    // NSDate *startTime = [NSDate dateWithTimeIntervalSince1970:startTimeTick];
     double endTimeTick = [[command.arguments objectAtIndex:2] doubleValue];
-    NSDate *endTime = [NSDate dateWithTimeIntervalSince1970:endTimeTick];    
+    // NSDate *endTime = [NSDate dateWithTimeIntervalSince1970:endTimeTick];
     
     ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
     __block BOOL calledBack = NO;
@@ -72,9 +72,11 @@
             
             // If this is not what we want, just check the next one.
             NSDate * date = [alAsset valueForProperty:ALAssetPropertyDate];
-            if ([date compare:startTime] != NSOrderedAscending || [date compare:endTime] != NSOrderedDescending) {
+            double timeStamp = [date timeIntervalSince1970] * 1000;
+            if (timeStamp - startTimeTick > -0.1 || endTimeTick - timeStamp > 0.1) {
                 return;
             }
+            NSLog(@"timeStamp=%f, startTime=%f, endTime=%f", timeStamp, startTimeTick, endTimeTick);
             
             ALAssetRepresentation *representation = [alAsset defaultRepresentation];
             ALAssetOrientation orientation = [representation orientation];
@@ -106,7 +108,7 @@
             }
             else {
                 NSMutableDictionary *resultDict = [NSMutableDictionary dictionaryWithCapacity:2];
-                [resultDict setObject:[NSNumber numberWithDouble:[date timeIntervalSince1970] * 1000] forKey:@"timestamp"];
+                [resultDict setObject:[NSNumber numberWithDouble:timeStamp] forKey:@"timestamp"];
                 [resultDict setObject:[[NSURL fileURLWithPath:filePath] absoluteString] forKey:@"path"];
                 CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:resultDict];
                 [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
