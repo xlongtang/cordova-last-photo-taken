@@ -46,11 +46,11 @@
 <platform name="android">
   <config-file target="res/xml/config.xml" parent="/*">
     <feature name="LastPhotoTaken" >
-      <param name="android-package" value="com.InfoBeyond.NXdrive.GalleryList"/>
+      <param name="android-package" value="com.infobeyond.nxdrive.LastPhotoTaken"/>
     </feature>
   </config-file>
 
-  <source-file src="src/android/GalleryList.java" target-dir="com/infobeyond/nxdrive" />
+  <source-file src="src/android/LastPhotoTaken.java" target-dir="com/infobeyond/nxdrive" />
 </platform>
 
 <platform name="ios">
