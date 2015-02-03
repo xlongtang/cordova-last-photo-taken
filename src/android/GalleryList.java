@@ -22,7 +22,7 @@
 /**
  * Retrieve the last picture by criteria
  */
-package com.InfoBeyond.NXdrive;
+package com.infobeyond.nxdrive;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
@@ -37,8 +37,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
 
-public class GalleryList extends CordovaPlugin {
-	public static String TAG = "GalleryList";
+public class LastPhotoTaken extends CordovaPlugin {
+	public static String TAG = "LastPhotoTaken";
     public static string ACTION = "getLastPhoto";
 
     final String[] projection = { MediaStore.Images.Media.DATA, MediaStore.Images.Media.DATE_TAKEN};
