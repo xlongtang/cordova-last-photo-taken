@@ -26,6 +26,7 @@ package com.infobeyond.nxdrive;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
+import org.apache.cordova.PluginResult;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,26 +35,39 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.content.ContentProvider;
+import android.database.Cursor;
+import android.provider.MediaStore;
 
 public class LastPhotoTaken extends CordovaPlugin {
 	public static String TAG = "LastPhotoTaken";
-    public static string ACTION = "getLastPhoto";
+    public static String ACTION = "getLastPhoto";
 
     final String[] projection = { MediaStore.Images.Media.DATA, MediaStore.Images.Media.DATE_TAKEN};
     final String orderBy = MediaStore.Images.Media.DATE_ADDED;
 	 
-	private CallbackContext callbackContext;
-
+	private CallbackContext callbackContext = null;
+	private Context context = null;
+	
     public class Result {
         public double timestamp = 0.0;
-        public string path = null;
+        public String path = null;
         public JSONObject toJSONObject() throws JSONException {
             return new JSONObject(
                                   "{path:" + path +
                                   ",timestamp:" + timestamp + "}");
         }
+    }
+    
+    /**
+     * Ctor
+     */
+    public LastPhotoTaken() {
+    	super();
+    	this.context = this.cordova.getActivity().getApplicationContext();
     }
 	 
 	public boolean execute(String action, final JSONArray args, final CallbackContext callbackContext) throws JSONException {
@@ -61,20 +75,21 @@ public class LastPhotoTaken extends CordovaPlugin {
 		if (action.equals(ACTION)) {
             // Expect three params: max, and a pair of time ticks
             int max = args.getInt(0);
-            double startTimeTick = args.getFloat(1);
-            double endTimeTick = args.getFloat(2);
+            double startTimeTick = args.getDouble(1);
+            double endTimeTick = args.getDouble(2);
             boolean found = false;
             Result searchResult = new Result();
-
-            Cursor cursor =  managedQuery(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, projection, null, null, orderBy);
+           
+            Cursor cursor =  MediaStore.Images.Media.query(context.getContentResolver(),
+            		MediaStore.Images.Media.EXTERNAL_CONTENT_URI, projection, null, null, orderBy);
 
             if (cursor.moveToFirst()) {
                 int dataColumn = cursor.getColumnIndex(MediaStore.Images.Media.DATA);
-                int dateColumn = cur.getColumnIndex(MediaStore.Images.Media.DATE_TAKEN);
+                int dateColumn = cursor.getColumnIndex(MediaStore.Images.Media.DATE_TAKEN);
                 
                 do {
                     // Do some math here ...
-                    string url = cursor.getString(dataColumn);
+                    String url = cursor.getString(dataColumn);
                     // COnvert it into a path
                     searchResult.path = url;
                     // timeStamp = cursor.getDouble(dateColumn);
@@ -93,7 +108,7 @@ public class LastPhotoTaken extends CordovaPlugin {
         } else {
             callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.IO_EXCEPTION, "Something wrong."));
         }
+		return true;
     }
-    return true;
 }
 
