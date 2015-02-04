@@ -25,20 +25,16 @@
 package com.infobeyond.nxdrive;
 
 import org.apache.cordova.CallbackContext;
+import org.apache.cordova.CordovaInterface;
 import org.apache.cordova.CordovaPlugin;
+import org.apache.cordova.CordovaWebView;
 import org.apache.cordova.PluginResult;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.util.Log;
-import android.content.ContentProvider;
 import android.database.Cursor;
 import android.provider.MediaStore;
 
@@ -62,15 +58,15 @@ public class LastPhotoTaken extends CordovaPlugin {
         }
     }
     
-    /**
-     * Ctor
-     */
-    public LastPhotoTaken() {
-    	super();
+    @Override 
+    public void initialize(CordovaInterface cordova, CordovaWebView webView)
+    {
+    	super.initialize(cordova, webView);    	
     	this.context = this.cordova.getActivity().getApplicationContext();
     }
-	 
-	public boolean execute(String action, final JSONArray args, final CallbackContext callbackContext) throws JSONException {
+
+    @Override
+	public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         this.callbackContext = callbackContext;
 		if (action.equals(ACTION)) {
             // Expect three params: max, and a pair of time ticks
@@ -101,12 +97,12 @@ public class LastPhotoTaken extends CordovaPlugin {
 
             // Return
             if (found) {
-                callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, searchResult.toJSONObject()));
+                this.callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, searchResult.toJSONObject()));
             } else {
-                callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, "There are no photos."));
+                this.callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, "There are no photos."));
             }
         } else {
-            callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.IO_EXCEPTION, "Something wrong."));
+            this.callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.IO_EXCEPTION, "Something wrong."));
         }
 		return true;
     }

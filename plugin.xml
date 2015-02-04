@@ -30,8 +30,8 @@
 <description>PhoneGap plugin to retrieve the last photo taken.</description>
 <license>Apache 2.0</license>
 <keywords>cordova,camera</keywords>
-<repo>https://github.com/JonathanAquino/cordova-last-photo-taken.git</repo>
-<author>Jonathan Aquino</author>
+<repo>https://github.com/xlongtang/cordova-last-photo-taken.git</repo>
+<author>Jonathan Aquino, Xiaolong Tang</author>
 
 <js-module src="www/last_photo_taken.js" name="LastPhotoTaken">
     <clobbers target="navigator.LastPhotoTaken" />
@@ -48,6 +48,10 @@
     <feature name="LastPhotoTaken" >
       <param name="android-package" value="com.infobeyond.nxdrive.LastPhotoTaken"/>
     </feature>
+  </config-file>
+
+  <config-file target="AndroidManifest.xml" parent="/*">
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
   </config-file>
 
   <source-file src="src/android/LastPhotoTaken.java" target-dir="src/com/infobeyond/nxdrive" />
