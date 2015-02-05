@@ -62,6 +62,14 @@
   <source-file src="src/android/Image.java" target-dir="src/com/infobeyond/nxdrive" />
   <source-file src="src/android/BaseImageList.java" target-dir="src/com/infobeyond/nxdrive" />
   <source-file src="src/android/ImageList.java" target-dir="src/com/infobeyond/nxdrive" />
+  <source-file src="src/android/SingleImageList.java" target-dir="src/com/infobeyond/nxdrive" />
+  <source-file src="src/android/VideoObject.java" target-dir="src/com/infobeyond/nxdrive" />
+  <source-file src="src/android/VideoList.java" target-dir="src/com/infobeyond/nxdrive" />
+  <source-file src="src/android/ImageListUber.java" target-dir="src/com/infobeyond/nxdrive" />
+  <source-file src="src/android/UriImage.java" target-dir="src/com/infobeyond/nxdrive" />
+  <source-file src="src/android/Util.java" target-dir="src/com/infobeyond/nxdrive" />
+  <source-file src="src/android/BitmapManager.java" target-dir="src/com/infobeyond/nxdrive" />
+  <source-file src="src/android/ImageManager.java" target-dir="src/com/infobeyond/nxdrive" />
 
 </platform>
 
