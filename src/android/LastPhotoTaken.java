@@ -34,9 +34,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.ContentUris;
 import android.content.Context;
 import android.database.Cursor;
+import android.net.Uri;
 import android.provider.MediaStore;
+import android.util.Log;
 
 public class LastPhotoTaken extends CordovaPlugin {
 	public static String TAG = "LastPhotoTaken";
@@ -64,6 +67,23 @@ public class LastPhotoTaken extends CordovaPlugin {
     	super.initialize(cordova, webView);    	
     	this.context = this.cordova.getActivity().getApplicationContext();
     }
+    
+    /*
+    // TODO: Change public to protected
+    private Uri contentUri(Uri baseUri, long id) {
+        // TODO: avoid using exception for most cases
+        try {
+            // does our uri already have an id (single image query)?
+            // if so just return it
+            long existingId = ContentUris.parseId(baseUri);
+            if (existingId != id) Log.e(TAG, "id mismatch");
+            return baseUri;
+        } catch (NumberFormatException ex) {
+            // otherwise tack on the id
+            return ContentUris.withAppendedId(baseUri, id);
+        }
+    } */
+    
 
     @Override
 	public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
@@ -76,8 +96,11 @@ public class LastPhotoTaken extends CordovaPlugin {
             boolean found = false;
             Result searchResult = new Result();
            
+            /*
+            Uri baseUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+
             Cursor cursor =  MediaStore.Images.Media.query(context.getContentResolver(),
-            		MediaStore.Images.Media.EXTERNAL_CONTENT_URI, projection, null, null, orderBy);
+            		baseUri, projection, null, null, orderBy);
 
             if (cursor.moveToFirst()) {
                 int dataColumn = cursor.getColumnIndex(MediaStore.Images.Media.DATA);
@@ -94,7 +117,27 @@ public class LastPhotoTaken extends CordovaPlugin {
                 } while (cursor.moveToNext());
             }
             cursor.close();
+            */
+            
 
+            IImageList imageList = ImageManager.makeImageList(context.getContentResolver(), 
+            		MediaStore.Images.Media.EXTERNAL_CONTENT_URI, ImageManager.SORT_DESCENDING);
+            
+            for(int i = 0; i < imageList.getCount(); i++)
+            {
+            	IImage image = imageList.getImageAt(i);
+            	long timestamp = image.getDateTaken();
+            	if (timestamp >= startTimeTick || endTimeTick >= timestamp) 
+            	{
+            		continue;
+            	}
+            	// Found one
+            	searchResult.timestamp = timestamp;
+            	searchResult.path = image.fullSizeImageUri().toString();
+            	found = true;
+            	break;
+            } 
+            
             // Return
             if (found) {
                 this.callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, searchResult.toJSONObject()));

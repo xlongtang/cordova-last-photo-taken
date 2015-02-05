@@ -16,8 +16,6 @@
 
 package com.infobeyond.nxdrive;
 
-import com.android.camera.ImageManager;
-import com.android.camera.Util;
 
 import android.content.ContentResolver;
 import android.content.ContentUris;

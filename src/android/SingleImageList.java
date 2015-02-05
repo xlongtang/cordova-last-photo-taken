@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.camera.gallery;
+package com.infobeyond.nxdrive;
 
 import android.content.ContentResolver;
 import android.net.Uri;

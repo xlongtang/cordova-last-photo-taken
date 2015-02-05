@@ -16,8 +16,7 @@
 
 package com.infobeyond.nxdrive;
 
-import com.android.camera.BitmapManager;
-import com.android.camera.Util;
+
 
 import android.content.ContentResolver;
 import android.graphics.Bitmap;
