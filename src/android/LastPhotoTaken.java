@@ -49,11 +49,11 @@ public class LastPhotoTaken extends CordovaPlugin {
 	private Context context = null;
 	
     public class Result {
-        public double timestamp = 0.0;
+        public long timestamp = 0;
         public String path = null;
         public JSONObject toJSONObject() throws JSONException {
             return new JSONObject(
-                                  "{path:" + path +
+                                  "{path:" + JSONObject.quote(path) +
                                   ",timestamp:" + timestamp + "}");
         }
     }
@@ -88,7 +88,7 @@ public class LastPhotoTaken extends CordovaPlugin {
                     String url = cursor.getString(dataColumn);
                     // COnvert it into a path
                     searchResult.path = url;
-                    // timeStamp = cursor.getDouble(dateColumn);
+                    searchResult.timestamp = cursor.getLong(dateColumn); 
                     found = true;
                     break;
                 } while (cursor.moveToNext());
