@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.camera.gallery;
+package com.infobeyond.nxdrive;
 
 import com.android.camera.BitmapManager;
 import com.android.camera.Util;
