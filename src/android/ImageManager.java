@@ -14,17 +14,8 @@
  * limitations under the License.
  */
 
-package com.android.camera;
+package com.infobeyond.nxdrive;
 
-import com.android.camera.gallery.BaseImageList;
-import com.android.camera.gallery.DrmImageList;
-import com.android.camera.gallery.IImage;
-import com.android.camera.gallery.IImageList;
-import com.android.camera.gallery.ImageList;
-import com.android.camera.gallery.ImageListUber;
-import com.android.camera.gallery.SingleImageList;
-import com.android.camera.gallery.VideoList;
-import com.android.camera.gallery.VideoObject;
 
 import android.content.ContentResolver;
 import android.content.ContentValues;
@@ -37,7 +28,6 @@ import android.net.Uri;
 import android.os.Environment;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.provider.DrmStore;
 import android.provider.MediaStore;
 import android.provider.MediaStore.Images;
 import android.util.Log;
@@ -315,10 +305,6 @@ public class ImageManager {
             if ((inclusion & INCLUDE_IMAGES) != 0) {
                 l.add(new ImageList(cr,
                         Images.Media.INTERNAL_CONTENT_URI, sort, bucketId));
-            }
-            if ((inclusion & INCLUDE_DRM_IMAGES) != 0) {
-                l.add(new DrmImageList(
-                        cr, DrmStore.Images.CONTENT_URI, sort, bucketId));
             }
         }
 
