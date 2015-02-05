@@ -55,6 +55,14 @@
   </config-file>
 
   <source-file src="src/android/LastPhotoTaken.java" target-dir="src/com/infobeyond/nxdrive" />
+  <source-file src="src/android/IImageList.java" target-dir="src/com/infobeyond/nxdrive" />
+  <source-file src="src/android/IImage.java" target-dir="src/com/infobeyond/nxdrive" />
+  <source-file src="src/android/LruCache.java" target-dir="src/com/infobeyond/nxdrive" />
+  <source-file src="src/android/BaseImage.java" target-dir="src/com/infobeyond/nxdrive" />
+  <source-file src="src/android/Image.java" target-dir="src/com/infobeyond/nxdrive" />
+  <source-file src="src/android/BaseImageList.java" target-dir="src/com/infobeyond/nxdrive" />
+  <source-file src="src/android/ImageList.java" target-dir="src/com/infobeyond/nxdrive" />
+
 </platform>
 
 <platform name="ios">
