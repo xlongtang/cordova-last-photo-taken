@@ -23,34 +23,64 @@
 #import <AssetsLibrary/ALAssetsFilter.h>
 #import <AssetsLibrary/ALAssetRepresentation.h>
 
+
 #define CDV_PHOTO_PREFIX @"cdv_photo_"
 
 @implementation LastPhotoTaken
+
 
 // Code is taken from:
 // - http://stackoverflow.com/questions/8867496/get-last-image-from-photos-app
 // - https://github.com/apache/cordova-plugin-camera/blob/master/src/ios/CDVCamera.m
 -(void) getLastPhoto:(CDVInvokedUrlCommand *)command {
 
-    NSInteger max = [[command.arguments objectAtIndex:0] integerValue];
+    // TODO: TO be used later
+    // NSInteger max = [[command.arguments objectAtIndex:0] integerValue];
     double startTimeTick = [[command.arguments objectAtIndex:1] doubleValue];
-    // NSDate *startTime = [NSDate dateWithTimeIntervalSince1970:startTimeTick];
     double endTimeTick = [[command.arguments objectAtIndex:2] doubleValue];
-    // NSDate *endTime = [NSDate dateWithTimeIntervalSince1970:endTimeTick];
+    double scanStartTimeTick = [[command.arguments objectAtIndex:3] doubleValue];
+    __block NSInteger newImages = 0;
+    __block NSInteger waitingTobeUploaded = 0;
     
     ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
     __block BOOL calledBack = NO;
+    __block BOOL found = NO;
+    __block NSString *filePath;
+    __block NSString *fileName;
+    __block double timestamp = 0.0;
+    __block NSInteger numAssets = 0;
+
 
     // Enumerate just the photos and videos group by using ALAssetsGroupSavedPhotos.
     [library enumerateGroupsWithTypes:ALAssetsGroupSavedPhotos usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
+        
+        // Note that we also takes into account videos ...
+        numAssets += group.numberOfAssets;
 
         // The end of the enumeration is signaled by group == nil.
         if (group == nil) {
             // Note that enumerateGroupsWithTypes:usingBlock:failureBlock: is asynchronous.
             // So the only way to know when it's done is to wait util we get nil here.
             if (!calledBack) {
-                CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"There are no photos."];
-                [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+                if (found)
+                {
+                    NSMutableDictionary *resultDict = [NSMutableDictionary dictionaryWithCapacity:2];
+                    [resultDict setObject:[NSNumber numberWithDouble:timestamp] forKey:@"timestamp"];
+                    [resultDict setObject:filePath forKey:@"path"];
+                    [resultDict setObject:fileName forKey:@"filename"];
+                    [resultDict setObject:[NSNumber numberWithInt:numAssets] forKey:@"totalImages"];
+                    [resultDict setObject:[NSNumber numberWithInt:newImages] forKey:@"newImages"];
+                    [resultDict setValue:[NSNumber numberWithInt:waitingTobeUploaded] forKey:@"waitingImages"];
+                    
+                    CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:resultDict];
+                    [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+                    calledBack = YES;
+                    //}
+
+                } else {
+                    CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"There are no photos."];
+                    [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+                }
             }
             return;
         }
@@ -72,47 +102,34 @@
             
             // If this is not what we want, just check the next one.
             NSDate * date = [alAsset valueForProperty:ALAssetPropertyDate];
-            double timeStamp = [date timeIntervalSince1970] * 1000;
-            if (timeStamp - startTimeTick > -0.1 || endTimeTick - timeStamp > 0.1) {
+            double localTimeStamp = [date timeIntervalSince1970] * 1000;
+            if (localTimeStamp - scanStartTimeTick > -0.1)
+            {
+                newImages++;
                 return;
             }
-            NSLog(@"timeStamp=%f, startTime=%f, endTime=%f", timeStamp, startTimeTick, endTimeTick);
             
-            ALAssetRepresentation *representation = [alAsset defaultRepresentation];
-            ALAssetOrientation orientation = [representation orientation];
-            UIImage *latestPhoto = [UIImage imageWithCGImage:[representation fullResolutionImage] scale:[representation scale] orientation:(UIImageOrientation)orientation];
-            latestPhoto = [self imageCorrectedForCaptureOrientation: latestPhoto];
-
-            // Stop the enumerations
-            *stop = YES; *innerStop = YES;
-            NSData * jpegData = UIImageJPEGRepresentation(latestPhoto, 1.0);
-
-            // write to temp directory and return URI
-            // get the temp directory path
-            NSString* docsPath = [NSTemporaryDirectory()stringByStandardizingPath];
-            NSError* err = nil;
-            NSFileManager* fileMgr = [[NSFileManager alloc] init]; // recommended by apple (vs [NSFileManager defaultManager]) to be threadsafe
-            // generate unique file name
-            NSString* filePath;
-
-            int i = 1;
-            do {
-                filePath = [NSString stringWithFormat:@"%@/%@%03d.%@", docsPath, CDV_PHOTO_PREFIX, i++, @"jpg"];
-            } while ([fileMgr fileExistsAtPath:filePath]);
-
-            // save file
-            if (![jpegData writeToFile:filePath options:NSAtomicWrite error:&err]) {
-                CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_IO_EXCEPTION messageAsString:[err localizedDescription]];
-                [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
-                calledBack = YES;
+            if (localTimeStamp - startTimeTick > -0.1) {
+                return;
             }
-            else {
-                NSMutableDictionary *resultDict = [NSMutableDictionary dictionaryWithCapacity:2];
-                [resultDict setObject:[NSNumber numberWithDouble:timeStamp] forKey:@"timestamp"];
-                [resultDict setObject:[[NSURL fileURLWithPath:filePath] absoluteString] forKey:@"path"];
-                CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:resultDict];
-                [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
-                calledBack = YES;
+            
+            if (endTimeTick - localTimeStamp > 0.1) {
+                // Stop the enumerations
+                *stop = YES; *innerStop = YES;
+                return;
+            }
+            
+            NSLog(@"timeStamp=%f, startTime=%f, endTime=%f", localTimeStamp, startTimeTick, endTimeTick);
+            
+            if (!found) {
+                ALAssetRepresentation *representation = [alAsset defaultRepresentation];
+                filePath = [[representation url] absoluteString];
+                fileName = [representation filename];
+                localTimeStamp = timestamp;
+                
+            } else
+            {
+                waitingTobeUploaded++;
             }
         }];
     } failureBlock: ^(NSError *error) {
