@@ -70,7 +70,7 @@
                     [resultDict setObject:fileName forKey:@"filename"];
                     [resultDict setObject:[NSNumber numberWithInt:numAssets] forKey:@"totalImages"];
                     [resultDict setObject:[NSNumber numberWithInt:newImages] forKey:@"newImages"];
-                    [resultDict setValue:[NSNumber numberWithInt:waitingTobeUploaded] forKey:@"waitingImages"];
+                    [resultDict setObject:[NSNumber numberWithInt:waitingTobeUploaded] forKey:@"waitingImages"];
                     
                     CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:resultDict];
                     [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
@@ -119,13 +119,14 @@
                 return;
             }
             
-            NSLog(@"timeStamp=%f, startTime=%f, endTime=%f", localTimeStamp, startTimeTick, endTimeTick);
+            // NSLog(@"timeStamp=%f, startTime=%f, endTime=%f, scanLastTime=%f", localTimeStamp, startTimeTick, endTimeTick, scanStartTimeTick);
             
             if (!found) {
                 ALAssetRepresentation *representation = [alAsset defaultRepresentation];
                 filePath = [[representation url] absoluteString];
                 fileName = [representation filename];
-                localTimeStamp = timestamp;
+                timestamp = localTimeStamp;
+                found = YES;
                 
             } else
             {
