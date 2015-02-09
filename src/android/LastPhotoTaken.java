@@ -55,7 +55,7 @@ public class LastPhotoTaken extends CordovaPlugin {
             return new JSONObject(
                                   "{path:" + JSONObject.quote(path) +
                                   ",timestamp:" + timestamp + 
-                                  ",filename:" + filename +  
+                                  ",filename:" + JSONObject.quote(filename) +  
                                   ",totalImages:" + totalImages + 
                                   ",newImages:" + newImages + 
                                   ",waitingImages" + waitingTobeUploaded + 
