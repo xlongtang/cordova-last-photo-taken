@@ -54,10 +54,17 @@ public class LastPhotoTaken extends CordovaPlugin {
     public class Result {
         public long timestamp = 0;
         public String path = null;
+        public int totalImages = 0;
+        public int newImages = 0;
+        public int waitingTobeUploaded = 0;
         public JSONObject toJSONObject() throws JSONException {
             return new JSONObject(
                                   "{path:" + JSONObject.quote(path) +
-                                  ",timestamp:" + timestamp + "}");
+                                  ",timestamp:" + timestamp + 
+                                  ",totalImages:" + totalImages + 
+                                  ",newImages:" + newImages + 
+                                  ",waitingImages" + waitingTobeUploaded + 
+                                  "}");
         }
     }
     
@@ -66,76 +73,60 @@ public class LastPhotoTaken extends CordovaPlugin {
     {
     	super.initialize(cordova, webView);    	
     	this.context = this.cordova.getActivity().getApplicationContext();
-    }
-    
-    /*
-    // TODO: Change public to protected
-    private Uri contentUri(Uri baseUri, long id) {
-        // TODO: avoid using exception for most cases
-        try {
-            // does our uri already have an id (single image query)?
-            // if so just return it
-            long existingId = ContentUris.parseId(baseUri);
-            if (existingId != id) Log.e(TAG, "id mismatch");
-            return baseUri;
-        } catch (NumberFormatException ex) {
-            // otherwise tack on the id
-            return ContentUris.withAppendedId(baseUri, id);
-        }
-    } */
-    
+    }    
 
     @Override
 	public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         this.callbackContext = callbackContext;
 		if (action.equals(ACTION)) {
             // Expect three params: max, and a pair of time ticks
+			// TODO: max is supposed to be used when we return a list of images rather than a single image...
+			@SuppressWarnings("unused")
             int max = args.getInt(0);
+			
             double startTimeTick = args.getDouble(1);
             double endTimeTick = args.getDouble(2);
+            double scanStartTimeTick = args.getDouble(3);
             boolean found = false;
-            Result searchResult = new Result();
-           
-            /*
-            Uri baseUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
-
-            Cursor cursor =  MediaStore.Images.Media.query(context.getContentResolver(),
-            		baseUri, projection, null, null, orderBy);
-
-            if (cursor.moveToFirst()) {
-                int dataColumn = cursor.getColumnIndex(MediaStore.Images.Media.DATA);
-                int dateColumn = cursor.getColumnIndex(MediaStore.Images.Media.DATE_TAKEN);
-                
-                do {
-                    // Do some math here ...
-                    String url = cursor.getString(dataColumn);
-                    // COnvert it into a path
-                    searchResult.path = url;
-                    searchResult.timestamp = cursor.getLong(dateColumn); 
-                    found = true;
-                    break;
-                } while (cursor.moveToNext());
-            }
-            cursor.close();
-            */
-            
+            Result searchResult = new Result();            
 
             IImageList imageList = ImageManager.makeImageList(context.getContentResolver(), 
             		MediaStore.Images.Media.EXTERNAL_CONTENT_URI, ImageManager.SORT_DESCENDING);
+            
+            searchResult.totalImages = imageList.getCount();
             
             for(int i = 0; i < imageList.getCount(); i++)
             {
             	IImage image = imageList.getImageAt(i);
             	long timestamp = image.getDateTaken();
-            	if (timestamp >= startTimeTick || endTimeTick >= timestamp) 
+            	// Count new images
+            	if (timestamp > scanStartTimeTick) 
             	{
+            		searchResult.newImages++;
             		continue;
             	}
-            	// Found one
-            	searchResult.timestamp = timestamp;
-            	searchResult.path = image.fullSizeImageUri().toString();
-            	found = true;
-            	break;
+            	// Skip those pictures between scanStartTimeTick and startTimeTick
+            	if (timestamp >= startTimeTick) {
+            		continue;
+            	}
+            	// Once we pass endTimeTick, we can stop right now
+            	if (endTimeTick >= timestamp)
+            	{
+            		break;
+            	}
+            	// The first time we reach here, the image accessible is what we are interested 
+            	// in. 
+            	if (!found)
+            	{
+            		searchResult.timestamp = timestamp;
+            		searchResult.path = image.fullSizeImageUri().toString();
+            		found = true;
+            	} 
+            	else 
+            	{
+            		// Count images waiting to be scanned next
+            		searchResult.waitingTobeUploaded++;            		
+            	}
             } 
             
             // Return
