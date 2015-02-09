@@ -116,7 +116,13 @@ public class LastPhotoTaken extends CordovaPlugin {
             	{
             		searchResult.timestamp = timestamp;
             		searchResult.path = image.fullSizeImageUri().toString();
-            		searchResult.filename = image.getTitle();
+            		
+            		// To determine the extension of a file name, we may 
+            		// map the MimeType to a known extension. Refer Apache Tika...
+            		// A lightweight way is to extract the extension from the 
+            		// data path
+            		String datapath = image.getDataPath();
+            		searchResult.filename = datapath.substring(datapath.lastIndexOf("\\") + 1);
             		found = true;
             	} 
             	else 
