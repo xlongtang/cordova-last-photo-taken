@@ -34,19 +34,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.content.ContentUris;
 import android.content.Context;
-import android.database.Cursor;
-import android.net.Uri;
 import android.provider.MediaStore;
-import android.util.Log;
 
 public class LastPhotoTaken extends CordovaPlugin {
 	public static String TAG = "LastPhotoTaken";
     public static String ACTION = "getLastPhoto";
-
-    final String[] projection = { MediaStore.Images.Media.DATA, MediaStore.Images.Media.DATE_TAKEN};
-    final String orderBy = MediaStore.Images.Media.DATE_ADDED;
 	 
 	private CallbackContext callbackContext = null;
 	private Context context = null;
@@ -81,7 +74,8 @@ public class LastPhotoTaken extends CordovaPlugin {
 	public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         this.callbackContext = callbackContext;
 		if (action.equals(ACTION)) {
-            // Expect three params: max, and a pair of time ticks
+            // Expect four parameters: max representing the upperbound of the number of files 
+			// which can be returned each time, and three time stamps 
 			// TODO: max is supposed to be used when we return a list of images rather than a single image...
 			@SuppressWarnings("unused")
             int max = args.getInt(0);
