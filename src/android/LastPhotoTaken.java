@@ -58,7 +58,7 @@ public class LastPhotoTaken extends CordovaPlugin {
                                   ",filename:" + JSONObject.quote(filename) +  
                                   ",totalImages:" + totalImages + 
                                   ",newImages:" + newImages + 
-                                  ",waitingImages" + waitingTobeUploaded + 
+                                  ",waitingImages:" + waitingTobeUploaded + 
                                   "}");
         }
     }
