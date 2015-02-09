@@ -57,10 +57,12 @@ public class LastPhotoTaken extends CordovaPlugin {
         public int totalImages = 0;
         public int newImages = 0;
         public int waitingTobeUploaded = 0;
+        public String filename = null;
         public JSONObject toJSONObject() throws JSONException {
             return new JSONObject(
                                   "{path:" + JSONObject.quote(path) +
                                   ",timestamp:" + timestamp + 
+                                  ",filename:" + filename +  
                                   ",totalImages:" + totalImages + 
                                   ",newImages:" + newImages + 
                                   ",waitingImages" + waitingTobeUploaded + 
@@ -120,6 +122,7 @@ public class LastPhotoTaken extends CordovaPlugin {
             	{
             		searchResult.timestamp = timestamp;
             		searchResult.path = image.fullSizeImageUri().toString();
+            		searchResult.filename = image.getTitle();
             		found = true;
             	} 
             	else 
