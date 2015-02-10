@@ -90,7 +90,7 @@
         };
 
         // Within the group enumeration block, filter to enumerate just photos.
-        [group setAssetsFilter:[ALAssetsFilter allPhotos]];
+        // [group setAssetsFilter:[ALAssetsFilter allPhotos]];
 
         // Chooses the photo at the last index
         [group enumerateAssetsWithOptions:NSEnumerationReverse usingBlock:^(ALAsset *alAsset, NSUInteger index, BOOL *innerStop) {
@@ -157,7 +157,7 @@
         case UIImageOrientationDown:
             rotation_radians = M_PI; // don't be scared of radians, if you're reading this, you're good at math
             break;
-
+            
         case UIImageOrientationRight:
             rotation_radians = M_PI_2;
             perpendicular = true;
