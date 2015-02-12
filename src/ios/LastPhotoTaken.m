@@ -22,6 +22,7 @@
 #import <AssetsLibrary/ALAssetsGroup.h>
 #import <AssetsLibrary/ALAssetsFilter.h>
 #import <AssetsLibrary/ALAssetRepresentation.h>
+#import "ALAsset+SortByDate.h"
 
 
 #define CDV_PHOTO_PREFIX @"cdv_photo_"
@@ -44,12 +45,8 @@
     
     ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
     __block BOOL calledBack = NO;
-    __block BOOL found = NO;
-    __block NSString *filePath;
-    __block NSString *fileName;
-    __block double timestamp = 0.0;
     __block NSInteger numAssets = 0;
-
+    NSMutableArray * assets = [[NSMutableArray array] init];
 
     // Enumerate just the photos and videos group by using ALAssetsGroupSavedPhotos.
     [library enumerateGroupsWithTypes:ALAssetsGroupSavedPhotos usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
@@ -62,6 +59,52 @@
             // Note that enumerateGroupsWithTypes:usingBlock:failureBlock: is asynchronous.
             // So the only way to know when it's done is to wait util we get nil here.
             if (!calledBack) {
+                
+                // Sorting ...
+                NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO];
+                NSArray *sortedAssets = [assets sortedArrayUsingDescriptors:@[sort]];
+                BOOL found = NO;
+                NSString *filePath;
+                NSString *fileName;
+                double timestamp = 0.0;
+                
+                // Search ...
+                for (ALAsset *alAsset in sortedAssets) {
+                
+                    // If this is not what we want, just check the next one.
+                    NSDate * date = [alAsset valueForProperty:ALAssetPropertyDate];
+                    double localTimeStamp = [date timeIntervalSince1970] * 1000;
+                    if (localTimeStamp - scanStartTimeTick > -0.1)
+                    {
+                        newImages++;
+                        continue;
+                    }
+                    
+                    if (localTimeStamp - startTimeTick > -0.1) {
+                        continue;
+                    }
+                    
+                    if (endTimeTick - localTimeStamp > 0.1) {
+                        // Stop the enumerations
+                        break;
+                    }
+                    
+                    // NSLog(@"timeStamp=%f, startTime=%f, endTime=%f, scanLastTime=%f", localTimeStamp, startTimeTick, endTimeTick, scanStartTimeTick);
+                    
+                    if (!found) {
+                        ALAssetRepresentation *representation = [alAsset defaultRepresentation];
+                        filePath = [[representation url] absoluteString];
+                        fileName = [representation filename];
+                        timestamp = localTimeStamp;
+                        found = YES;
+                        
+                    } else
+                    {
+                        waitingTobeUploaded++;
+                    }
+                }
+
+                
                 if (found)
                 {
                     NSMutableDictionary *resultDict = [NSMutableDictionary dictionaryWithCapacity:2];
@@ -91,6 +134,8 @@
 
         // Within the group enumeration block, filter to enumerate just photos.
         // [group setAssetsFilter:[ALAssetsFilter allPhotos]];
+        
+        
 
         // Chooses the photo at the last index
         [group enumerateAssetsWithOptions:NSEnumerationReverse usingBlock:^(ALAsset *alAsset, NSUInteger index, BOOL *innerStop) {
@@ -100,38 +145,7 @@
                 return;
             }
             
-            // If this is not what we want, just check the next one.
-            NSDate * date = [alAsset valueForProperty:ALAssetPropertyDate];
-            double localTimeStamp = [date timeIntervalSince1970] * 1000;
-            if (localTimeStamp - scanStartTimeTick > -0.1)
-            {
-                newImages++;
-                return;
-            }
-            
-            if (localTimeStamp - startTimeTick > -0.1) {
-                return;
-            }
-            
-            if (endTimeTick - localTimeStamp > 0.1) {
-                // Stop the enumerations
-                *stop = YES; *innerStop = YES;
-                return;
-            }
-            
-            // NSLog(@"timeStamp=%f, startTime=%f, endTime=%f, scanLastTime=%f", localTimeStamp, startTimeTick, endTimeTick, scanStartTimeTick);
-            
-            if (!found) {
-                ALAssetRepresentation *representation = [alAsset defaultRepresentation];
-                filePath = [[representation url] absoluteString];
-                fileName = [representation filename];
-                timestamp = localTimeStamp;
-                found = YES;
-                
-            } else
-            {
-                waitingTobeUploaded++;
-            }
+            [assets addObject:alAsset];
         }];
     } failureBlock: ^(NSError *error) {
         CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_IO_EXCEPTION messageAsString:[error localizedDescription]];
