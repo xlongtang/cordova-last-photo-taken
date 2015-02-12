@@ -85,6 +85,8 @@
     <!-- core LastPhotoTaken header and source files -->
     <header-file src="src/ios/LastPhotoTaken.h" />
     <source-file src="src/ios/LastPhotoTaken.m" />
+    <header-file src="src/ios/ALAsset+SortByDate.h" />
+    <source-file src="src/ios/ALAsset+SortByDate.m" />
 
 </platform>
 
