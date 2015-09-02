@@ -135,7 +135,7 @@ public class LastPhotoTaken extends CordovaPlugin {
             }
 
             IImageList videoList = ImageManager.makeImageList(context.getContentResolver(),
-                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                    MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
                     ImageManager.SORT_DESCENDING);
 
             searchResult.totalImages += videoList.getCount();
