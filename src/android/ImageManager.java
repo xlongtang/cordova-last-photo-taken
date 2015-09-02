@@ -348,7 +348,7 @@ public class ImageManager {
             return makeSingleImageList(cr, uri);
         } else {
             String bucketId = uri.getQueryParameter("bucketId");
-            return makeImageList(cr, DataLocation.ALL, INCLUDE_IMAGES, sort,
+            return makeImageList(cr, DataLocation.ALL, INCLUDE_VIDEOS, sort,
                     bucketId);
         }
     }
