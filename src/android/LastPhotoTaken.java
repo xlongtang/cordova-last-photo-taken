@@ -37,13 +37,15 @@ import org.json.JSONObject;
 import android.content.Context;
 import android.provider.MediaStore;
 
+import java.io.IOException;
+
 public class LastPhotoTaken extends CordovaPlugin {
 	public static String TAG = "LastPhotoTaken";
     public static String ACTION = "getLastPhoto";
 	 
 	private CallbackContext callbackContext = null;
 	private Context context = null;
-	
+
     public class Result {
         public long timestamp = 0;
         public String path = null;
@@ -74,96 +76,72 @@ public class LastPhotoTaken extends CordovaPlugin {
 	public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         this.callbackContext = callbackContext;
 		if (action.equals(ACTION)) {
-            // Expect four parameters: max representing the upperbound of the number of files 
-			// which can be returned each time, and three time stamps 
-			// TODO: max is supposed to be used when we return a list of images rather than a single image...
-			@SuppressWarnings("unused")
-            int max = args.getInt(0);
-			
-            double startTimeTick = args.getDouble(1);
-            double endTimeTick = args.getDouble(2);
-            double scanStartTimeTick = args.getDouble(3);
-            boolean foundImage = false;
-            boolean foundVideo = false;
-            Result searchResult = new Result();            
+            Helper helper = new Helper(args, callbackContext, context);
+            cordova.getThreadPool().execute(helper);
+        }
+		return true;
+    }
 
-            IImageList imageList = ImageManager.makeImageList(context.getContentResolver(), 
-                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                    ImageManager.SORT_DESCENDING);
-            
-            searchResult.totalImages = imageList.getCount();
-            
-            for(int i = 0; i < imageList.getCount(); i++)
-            {
-            	IImage image = imageList.getImageAt(i);
-            	long timestamp = image.getDateTaken();
-            	// Count new images
-            	if (timestamp > scanStartTimeTick) 
-            	{
-            		searchResult.newImages++;
-            		continue;
-            	}
-            	// Skip those pictures between scanStartTimeTick and startTimeTick
-            	if (timestamp >= startTimeTick) {
-            		continue;
-            	}
-            	// Once we pass endTimeTick, we can stop right now
-            	if (endTimeTick >= timestamp)
-            	{
-            		break;
-            	}
-            	// The first time we reach here, the image accessible is what we are interested 
-            	// in. 
-            	if (!foundImage)
-            	{
-            		searchResult.timestamp = timestamp;
-            		searchResult.path = image.fullSizeImageUri().toString();
-            		
-            		// To determine the extension of a file name, we may 
-            		// map the MimeType to a known extension. Refer Apache Tika...
-            		// A lightweight way is to extract the extension from the 
-            		// data path
-            		String datapath = image.getDataPath();
-            		searchResult.filename = datapath.substring(datapath.lastIndexOf("\\") + 1);
-            		foundImage = true;
-            	} 
-            	else 
-            	{
-            		// Count images waiting to be scanned next
-            		searchResult.waitingTobeUploaded++;            		
-            	}
-            }
+    public class Helper implements Runnable {
+        private CallbackContext callbackContext = null;
+        private Context context = null;
 
-            IImageList videoList = ImageManager.makeImageList(context.getContentResolver(),
-                    MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
-                    ImageManager.SORT_DESCENDING);
+        int max;
+        double startTimeTick;
+        double endTimeTick;
+        double scanStartTimeTick;
+        boolean foundImage;
+        boolean foundVideo;
+        Result searchResult;
 
-            searchResult.totalImages += videoList.getCount();
+        private JSONArray args;
 
-            for(int i = 0; i < videoList.getCount(); i++)
-            {
-                IImage image = videoList.getImageAt(i);
-                long timestamp = image.getDateTaken();
-                // Count new images
-                if (timestamp > scanStartTimeTick)
-                {
-                    searchResult.newImages++;
-                    continue;
-                }
-                // Skip those pictures between scanStartTimeTick and startTimeTick
-                if (timestamp >= startTimeTick) {
-                    continue;
-                }
-                // Once we pass endTimeTick, we can stop right now
-                if (endTimeTick >= timestamp)
-                {
-                    break;
-                }
-                // The first time we reach here, the image accessible is what we are interested
-                // in.
-                if (!foundVideo)
-                {
-                    if (!foundImage || searchResult.timestamp < timestamp) {
+        public Helper(JSONArray args, CallbackContext callbackContext, Context context) throws JSONException {
+            this.callbackContext = callbackContext;
+            this.context = context;
+            max = args.getInt(0);
+
+            startTimeTick = args.getDouble(1);
+            endTimeTick = args.getDouble(2);
+            scanStartTimeTick = args.getDouble(3);
+            foundImage = false;
+            foundVideo = false;
+            searchResult = new Result();
+        }
+
+        @Override
+        public void run() {
+
+            try {
+                // Expect four parameters: max representing the upperbound of the number of files
+                // which can be returned each time, and three time stamps
+                // TODO: max is supposed to be used when we return a list of images rather than a single image...
+
+                IImageList imageList = ImageManager.makeImageList(context.getContentResolver(),
+                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                        ImageManager.SORT_DESCENDING);
+
+                searchResult.totalImages = imageList.getCount();
+
+                for (int i = 0; i < imageList.getCount(); i++) {
+                    IImage image = imageList.getImageAt(i);
+                    long timestamp = image.getDateTaken();
+                    // Count new images
+                    if (timestamp > scanStartTimeTick) {
+                        searchResult.newImages++;
+                        continue;
+                    }
+                    // Skip those pictures between scanStartTimeTick and startTimeTick
+                    if (timestamp >= startTimeTick) {
+                        continue;
+                    }
+                    // Once we pass endTimeTick, we can stop right now
+                    if (endTimeTick >= timestamp) {
+                        break;
+                    }
+                    // The first time we reach here, the image accessible is what we are interested
+                    // in.
+                    if (!foundImage) {
                         searchResult.timestamp = timestamp;
                         searchResult.path = image.fullSizeImageUri().toString();
 
@@ -173,28 +151,68 @@ public class LastPhotoTaken extends CordovaPlugin {
                         // data path
                         String datapath = image.getDataPath();
                         searchResult.filename = datapath.substring(datapath.lastIndexOf("\\") + 1);
-                        foundVideo = true;
+                        foundImage = true;
                     } else {
+                        // Count images waiting to be scanned next
                         searchResult.waitingTobeUploaded++;
                     }
                 }
-                else
-                {
-                    // Count images waiting to be scanned next
-                    searchResult.waitingTobeUploaded++;
+
+                IImageList videoList = ImageManager.makeImageList(context.getContentResolver(),
+                        MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
+                        ImageManager.SORT_DESCENDING);
+
+                searchResult.totalImages += videoList.getCount();
+
+                for (int i = 0; i < videoList.getCount(); i++) {
+                    IImage image = videoList.getImageAt(i);
+                    long timestamp = image.getDateTaken();
+                    // Count new images
+                    if (timestamp > scanStartTimeTick) {
+                        searchResult.newImages++;
+                        continue;
+                    }
+                    // Skip those pictures between scanStartTimeTick and startTimeTick
+                    if (timestamp >= startTimeTick) {
+                        continue;
+                    }
+                    // Once we pass endTimeTick, we can stop right now
+                    if (endTimeTick >= timestamp) {
+                        break;
+                    }
+                    // The first time we reach here, the image accessible is what we are interested
+                    // in.
+                    if (!foundVideo) {
+                        if (!foundImage || searchResult.timestamp < timestamp) {
+                            searchResult.timestamp = timestamp;
+                            searchResult.path = image.fullSizeImageUri().toString();
+
+                            // To determine the extension of a file name, we may
+                            // map the MimeType to a known extension. Refer Apache Tika...
+                            // A lightweight way is to extract the extension from the
+                            // data path
+                            String datapath = image.getDataPath();
+                            searchResult.filename = datapath.substring(datapath.lastIndexOf("\\") + 1);
+                            foundVideo = true;
+                        } else {
+                            searchResult.waitingTobeUploaded++;
+                        }
+                    } else {
+                        // Count images waiting to be scanned next
+                        searchResult.waitingTobeUploaded++;
+                    }
                 }
+
+                // Return
+                if (foundImage || foundVideo) {
+                    this.callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, searchResult.toJSONObject()));
+                } else {
+                    this.callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, "There are no photos."));
+                }
+            } catch (JSONException e) {
+                this.callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.JSON_EXCEPTION, "Something wrong."));
             }
-            
-            // Return
-            if (foundImage || foundVideo) {
-                this.callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, searchResult.toJSONObject()));
-            } else {
-                this.callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, "There are no photos."));
-            }
-        } else {
-            this.callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.IO_EXCEPTION, "Something wrong."));
         }
-		return true;
     }
 }
 
