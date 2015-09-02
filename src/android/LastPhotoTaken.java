@@ -142,7 +142,7 @@ public class LastPhotoTaken extends CordovaPlugin {
 
             for(int i = 0; i < videoList.getCount(); i++)
             {
-                IImage image = imageList.getImageAt(i);
+                IImage image = videoList.getImageAt(i);
                 long timestamp = image.getDateTaken();
                 // Count new images
                 if (timestamp > scanStartTimeTick)
@@ -174,6 +174,8 @@ public class LastPhotoTaken extends CordovaPlugin {
                         String datapath = image.getDataPath();
                         searchResult.filename = datapath.substring(datapath.lastIndexOf("\\") + 1);
                         foundVideo = true;
+                    } else {
+                        searchResult.waitingTobeUploaded++;
                     }
                 }
                 else
