@@ -163,17 +163,18 @@ public class LastPhotoTaken extends CordovaPlugin {
                 // in.
                 if (!foundVideo)
                 {
-                    if (!foundImage || searchResult.timestamp < timestamp)
-                    searchResult.timestamp = timestamp;
-                    searchResult.path = image.fullSizeImageUri().toString();
+                    if (!foundImage || searchResult.timestamp < timestamp) {
+                        searchResult.timestamp = timestamp;
+                        searchResult.path = image.fullSizeImageUri().toString();
 
-                    // To determine the extension of a file name, we may
-                    // map the MimeType to a known extension. Refer Apache Tika...
-                    // A lightweight way is to extract the extension from the
-                    // data path
-                    String datapath = image.getDataPath();
-                    searchResult.filename = datapath.substring(datapath.lastIndexOf("\\") + 1);
-                    foundVideo = true;
+                        // To determine the extension of a file name, we may
+                        // map the MimeType to a known extension. Refer Apache Tika...
+                        // A lightweight way is to extract the extension from the
+                        // data path
+                        String datapath = image.getDataPath();
+                        searchResult.filename = datapath.substring(datapath.lastIndexOf("\\") + 1);
+                        foundVideo = true;
+                    }
                 }
                 else
                 {
