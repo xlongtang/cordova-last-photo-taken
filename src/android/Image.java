@@ -44,9 +44,9 @@ public class Image extends BaseImage implements IImage {
     public Image(BaseImageList container, ContentResolver cr,
             long id, int index, Uri uri, String dataPath,
             String mimeType, long dateTaken, String title,
-            int rotation) {
+            int rotation, long size) {
         super(container, cr, id, index, uri, dataPath,
-                mimeType, dateTaken, title);
+                mimeType, dateTaken, title, size);
         mRotation = rotation;
     }
 

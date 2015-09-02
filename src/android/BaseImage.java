@@ -48,6 +48,7 @@ public abstract class BaseImage implements IImage {
     protected String mMimeType;
     private final long mDateTaken;
     private String mTitle;
+    private long mSize;
 
     protected BaseImageList mContainer;
 
@@ -56,7 +57,7 @@ public abstract class BaseImage implements IImage {
 
     protected BaseImage(BaseImageList container, ContentResolver cr,
             long id, int index, Uri uri, String dataPath, String mimeType,
-            long dateTaken, String title) {
+            long dateTaken, String title, long size) {
         mContainer = container;
         mContentResolver = cr;
         mId = id;
@@ -66,6 +67,7 @@ public abstract class BaseImage implements IImage {
         mMimeType = mimeType;
         mDateTaken = dateTaken;
         mTitle = title;
+        mSize = size;
     }
 
     public String getDataPath() {
@@ -135,6 +137,8 @@ public abstract class BaseImage implements IImage {
     public String getTitle() {
         return mTitle;
     }
+
+    public long getSize() { return mSize; }
 
     private void setupDimension() {
         ParcelFileDescriptor input = null;

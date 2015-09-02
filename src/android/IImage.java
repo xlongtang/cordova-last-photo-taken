@@ -64,6 +64,8 @@ public interface IImage {
 
     public abstract int getHeight();
 
+    public abstract long getSize();
+
     // Get property of the image
     public abstract boolean isReadonly();
     public abstract boolean isDrm();

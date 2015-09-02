@@ -39,7 +39,9 @@ public class VideoList extends BaseImageList {
             Media.TITLE,
             Media.MINI_THUMB_MAGIC,
             Media.MIME_TYPE,
-            Media.DATE_MODIFIED};
+            Media.DATE_MODIFIED,
+            Media.SIZE
+    };
 
     private static final int INDEX_ID = 0;
     private static final int INDEX_DATA_PATH = 1;
@@ -48,6 +50,8 @@ public class VideoList extends BaseImageList {
     private static final int INDEX_MIMI_THUMB_MAGIC = 4;
     private static final int INDEX_MIME_TYPE = 5;
     private static final int INDEX_DATE_MODIFIED = 6;
+    private static final int INDEX_SIZE = 7;
+
 
     @Override
     protected long getImageId(Cursor cursor) {
@@ -68,9 +72,10 @@ public class VideoList extends BaseImageList {
         if (title == null || title.length() == 0) {
             title = dataPath;
         }
+        long size = cursor.getLong(INDEX_SIZE);
         return new VideoObject(this, mContentResolver,
                 id, cursor.getPosition(), contentUri(id), dataPath,
-                mimeType, dateTaken, title);
+                mimeType, dateTaken, title, size);
     }
 
     public VideoList(ContentResolver resolver, Uri uri, int sort,

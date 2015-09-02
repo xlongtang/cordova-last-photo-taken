@@ -53,15 +53,16 @@ public class LastPhotoTaken extends CordovaPlugin {
         public int newImages = 0;
         public int waitingTobeUploaded = 0;
         public String filename = null;
+        public long size = 0;
         public JSONObject toJSONObject() throws JSONException {
-            return new JSONObject(
-                                  "{path:" + JSONObject.quote(path) +
-                                  ",timestamp:" + timestamp + 
-                                  ",filename:" + JSONObject.quote(filename) +  
-                                  ",totalImages:" + totalImages + 
-                                  ",newImages:" + newImages + 
-                                  ",waitingImages:" + waitingTobeUploaded + 
-                                  "}");
+            return new JSONObject("{path:" + JSONObject.quote(path) +
+                    ",timestamp:" + timestamp +
+                    ",size:" + size +
+                    ",filename:" + JSONObject.quote(filename) +
+                    ",totalImages:" + totalImages +
+                    ",newImages:" + newImages +
+                    ",waitingImages:" + waitingTobeUploaded +
+                    "}");
         }
     }
     
@@ -151,6 +152,7 @@ public class LastPhotoTaken extends CordovaPlugin {
                         // data path
                         String datapath = image.getDataPath();
                         searchResult.filename = datapath.substring(datapath.lastIndexOf("\\") + 1);
+                        searchResult.size = image.getSize();
                         foundImage = true;
                     } else {
                         // Count images waiting to be scanned next
@@ -193,6 +195,7 @@ public class LastPhotoTaken extends CordovaPlugin {
                             // data path
                             String datapath = image.getDataPath();
                             searchResult.filename = datapath.substring(datapath.lastIndexOf("\\") + 1);
+                            searchResult.size = image.getSize();
                             foundVideo = true;
                         } else {
                             searchResult.waitingTobeUploaded++;
