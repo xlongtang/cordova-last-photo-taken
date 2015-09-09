@@ -151,6 +151,10 @@ class UriImage implements IImage {
         return (options != null) ? options.outWidth : 0;
     }
 
+    public long getSize() {
+        return  0;
+    }
+
     public IImageList getContainer() {
         return mContainer;
     }

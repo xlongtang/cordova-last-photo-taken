@@ -100,7 +100,9 @@ public class ImageList extends BaseImageList implements IImageList {
             Media.ORIENTATION,
             Media.TITLE,
             Media.MIME_TYPE,
-            Media.DATE_MODIFIED};
+            Media.DATE_MODIFIED,
+            Media.SIZE
+    };
 
     private static final int INDEX_ID = 0;
     private static final int INDEX_DATA_PATH = 1;
@@ -110,6 +112,7 @@ public class ImageList extends BaseImageList implements IImageList {
     private static final int INDEX_TITLE = 5;
     private static final int INDEX_MIME_TYPE = 6;
     private static final int INDEX_DATE_MODIFIED = 7;
+    private static final int INDEX_SIZE = 8;
 
     @Override
     protected long getImageId(Cursor cursor) {
@@ -131,8 +134,9 @@ public class ImageList extends BaseImageList implements IImageList {
         if (title == null || title.length() == 0) {
             title = dataPath;
         }
+        long size = cursor.getLong(INDEX_SIZE);
         return new Image(this, mContentResolver, id, cursor.getPosition(),
                 contentUri(id), dataPath, mimeType, dateTaken, title,
-                orientation);
+                orientation, size);
     }
 }
