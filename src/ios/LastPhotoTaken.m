@@ -67,6 +67,7 @@
                 NSString *filePath;
                 NSString *fileName;
                 double timestamp = 0.0;
+                long fileSize = 0;
                 
                 // Search ...
                 for (ALAsset *alAsset in sortedAssets) {
@@ -95,6 +96,7 @@
                         ALAssetRepresentation *representation = [alAsset defaultRepresentation];
                         filePath = [[representation url] absoluteString];
                         fileName = [representation filename];
+                        fileSize = [representation size];
                         timestamp = localTimeStamp;
                         found = YES;
                         
@@ -114,6 +116,7 @@
                     [resultDict setObject:[NSNumber numberWithInt:numAssets] forKey:@"totalImages"];
                     [resultDict setObject:[NSNumber numberWithInt:newImages] forKey:@"newImages"];
                     [resultDict setObject:[NSNumber numberWithInt:waitingTobeUploaded] forKey:@"waitingImages"];
+                    [resultDict setObject:[NSNumber numberWithLong:fileSize] forKey:@"size"];
                     
                     CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:resultDict];
                     [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
