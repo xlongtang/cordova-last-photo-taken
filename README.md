@@ -36,25 +36,22 @@ Works on iOS only.
 
 ### Description
 
-The `getLastPhoto` function retrieves the last photo taken by the user, at its
+The `getLastPhoto` function retrieves the last media (photo or video) taken by the user, at its
 original size, and at its current orientation. The user may be prompted to give
-access to photos on the device. The URI returned is for a temporary jpeg file
-created in NSTemporaryDirectory.
+access to photos or videos on the device. The return value on success describes the size of the last media, 
+and its Content URI (i.e. path), its name, its time stamp, and the various counters for the media storage.
 
 ### Supported Platforms
 
 - iOS
+- Android
 
 ### Example
 
 If the device is running iOS, retrieve the URI for the last photo taken:
 
-    // May need to install the device plugin:
-    // https://github.com/apache/cordova-plugin-device/blob/master/doc/index.md
-    if (device.platform === 'iOS') {
       navigator.LastPhotoTaken.getLastPhoto(function (imageUri) {
         alert('imageUri: ' + imageUri);
       }, function (errorMessage) {
         alert(errorMessage);
       });
-    }
