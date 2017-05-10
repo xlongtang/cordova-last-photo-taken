@@ -21,65 +21,59 @@
   -->
 
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:rim="http://www.blackberry.com/ns/widgets"
-    id="com.ning.last-photo-taken"
-    version="0.0.2">
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:rim="http://www.blackberry.com/ns/widgets"
+        id="com.ning.last-photo-taken"
+        version="0.0.2">
 
-<name>Last Photo Taken</name>
-<description>PhoneGap plugin to retrieve the last photo taken.</description>
-<license>Apache 2.0</license>
-<keywords>cordova,camera</keywords>
-<repo>https://github.com/xlongtang/cordova-last-photo-taken.git</repo>
-<author>Jonathan Aquino, Xiaolong Tang</author>
+  <name>Last Photo Taken</name>
+  <description>PhoneGap plugin to retrieve the last photo taken.</description>
+  <license>Apache 2.0</license>
+  <repo>https://github.com/xlongtang/cordova-last-photo-taken.git</repo>
+  <author>Jonathan Aquino, Xiaolong Tang</author>
 
-<js-module src="www/last_photo_taken.js" name="LastPhotoTaken">
+  <js-module src="www/last_photo_taken.js" name="LastPhotoTaken">
     <clobbers target="navigator.LastPhotoTaken" />
-</js-module>
+  </js-module>
 
-<engines>
-    <engine name="cordova" version=">=3.1.0" />
-</engines>
+  <!-- android -->
+  <platform name="android">
+    <config-file target="res/xml/config.xml" parent="/*">
+      <feature name="LastPhotoTaken" >
+        <param name="android-package" value="com.infobeyond.nxdrive.LastPhotoTaken"/>
+      </feature>
+    </config-file>
 
+    <config-file target="AndroidManifest.xml" parent="/*">
+      <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    </config-file>
 
-<!-- android -->
-<platform name="android">
-  <config-file target="res/xml/config.xml" parent="/*">
-    <feature name="LastPhotoTaken" >
-      <param name="android-package" value="com.infobeyond.nxdrive.LastPhotoTaken"/>
-    </feature>
-  </config-file>
+    <source-file src="src/android/LastPhotoTaken.java" target-dir="src/com/infobeyond/nxdrive" />
+    <source-file src="src/android/IImageList.java" target-dir="src/com/infobeyond/nxdrive" />
+    <source-file src="src/android/IImage.java" target-dir="src/com/infobeyond/nxdrive" />
+    <source-file src="src/android/LruCache.java" target-dir="src/com/infobeyond/nxdrive" />
+    <source-file src="src/android/BaseImage.java" target-dir="src/com/infobeyond/nxdrive" />
+    <source-file src="src/android/Image.java" target-dir="src/com/infobeyond/nxdrive" />
+    <source-file src="src/android/BaseImageList.java" target-dir="src/com/infobeyond/nxdrive" />
+    <source-file src="src/android/ImageList.java" target-dir="src/com/infobeyond/nxdrive" />
+    <source-file src="src/android/SingleImageList.java" target-dir="src/com/infobeyond/nxdrive" />
+    <source-file src="src/android/VideoObject.java" target-dir="src/com/infobeyond/nxdrive" />
+    <source-file src="src/android/VideoList.java" target-dir="src/com/infobeyond/nxdrive" />
+    <source-file src="src/android/ImageListUber.java" target-dir="src/com/infobeyond/nxdrive" />
+    <source-file src="src/android/UriImage.java" target-dir="src/com/infobeyond/nxdrive" />
+    <source-file src="src/android/Util.java" target-dir="src/com/infobeyond/nxdrive" />
+    <source-file src="src/android/BitmapManager.java" target-dir="src/com/infobeyond/nxdrive" />
+    <source-file src="src/android/ImageManager.java" target-dir="src/com/infobeyond/nxdrive" />
 
-  <config-file target="AndroidManifest.xml" parent="/*">
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-  </config-file>
+  </platform>
 
-  <source-file src="src/android/LastPhotoTaken.java" target-dir="src/com/infobeyond/nxdrive" />
-  <source-file src="src/android/IImageList.java" target-dir="src/com/infobeyond/nxdrive" />
-  <source-file src="src/android/IImage.java" target-dir="src/com/infobeyond/nxdrive" />
-  <source-file src="src/android/LruCache.java" target-dir="src/com/infobeyond/nxdrive" />
-  <source-file src="src/android/BaseImage.java" target-dir="src/com/infobeyond/nxdrive" />
-  <source-file src="src/android/Image.java" target-dir="src/com/infobeyond/nxdrive" />
-  <source-file src="src/android/BaseImageList.java" target-dir="src/com/infobeyond/nxdrive" />
-  <source-file src="src/android/ImageList.java" target-dir="src/com/infobeyond/nxdrive" />
-  <source-file src="src/android/SingleImageList.java" target-dir="src/com/infobeyond/nxdrive" />
-  <source-file src="src/android/VideoObject.java" target-dir="src/com/infobeyond/nxdrive" />
-  <source-file src="src/android/VideoList.java" target-dir="src/com/infobeyond/nxdrive" />
-  <source-file src="src/android/ImageListUber.java" target-dir="src/com/infobeyond/nxdrive" />
-  <source-file src="src/android/UriImage.java" target-dir="src/com/infobeyond/nxdrive" />
-  <source-file src="src/android/Util.java" target-dir="src/com/infobeyond/nxdrive" />
-  <source-file src="src/android/BitmapManager.java" target-dir="src/com/infobeyond/nxdrive" />
-  <source-file src="src/android/ImageManager.java" target-dir="src/com/infobeyond/nxdrive" />
-
-</platform>
-
-<platform name="ios">
+  <platform name="ios">
 
     <!-- config file -->
     <config-file target="config.xml" parent="/*">
-        <feature name="LastPhotoTaken">
-            <param name="ios-package" value="LastPhotoTaken" />
-        </feature>
+      <feature name="LastPhotoTaken">
+        <param name="ios-package" value="LastPhotoTaken" />
+      </feature>
     </config-file>
 
     <!-- core LastPhotoTaken header and source files -->
@@ -88,6 +82,6 @@
     <header-file src="src/ios/ALAsset+SortByDate.h" />
     <source-file src="src/ios/ALAsset+SortByDate.m" />
 
-</platform>
+  </platform>
 
 </plugin>

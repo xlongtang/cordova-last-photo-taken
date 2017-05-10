@@ -1,0 +1,33 @@
+{
+    "name": "com.ning.last-photo-taken",
+    "version": "0.0.2",
+    "description": "Cordova / PhoneGap plugin to retrieve the last photo taken.",
+    "cordova": {
+        "id": "com.ning.last-photo-taken",
+        "platforms": [
+            "android",
+            "ios"
+        ]
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/xlongtang/cordova-last-photo-taken.git"
+    },
+    "keywords": [
+        "cordova",
+        "camera",
+        "last photo"
+    ],
+    "author": "Jonathan Aquino, Xiaolong Tang",
+    "license": "Apache 2.0",    
+    "engines": [
+        {
+            "name": "cordova",
+            "version": ">=3.1.0"
+        }
+    ],
+    "bugs": {
+        "url": "https://github.com/xlongtang/cordova-last-photo-taken/issues"
+    },
+    "homepage": "https://github.com/xlongtang/cordova-last-photo-taken#readme"
+}
